@@ -1,0 +1,116 @@
+<div class="raw">
+	<link rel="stylesheet" type="text/css" href="../../css/chat.css"/>    
+	<div class="col-md-6">
+		<div class="row" id="chat_window_1" style="margin-left:10px;">
+			<div class="col-xs-12 col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading top-bar">
+						<div class="col-md-8 col-xs-8">
+							<h3 class="panel-title">
+								<span class="glyphicon glyphicon-comment"/> Chat Window</h3>
+						</div>
+						<div class="col-md-4 col-xs-4" style="text-align: right;">
+							<a href="#">
+								<span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"/>
+							</a>
+							<a href="#">
+								<span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"/>
+							</a>
+						</div>
+					</div>
+					<div class="panel-body msg_container_base">
+						<div  ng-repeat="msg in messages">
+							<div class="row msg_container base_sent" ng-show='{{isMe(msg.user)}}'>
+								<div class="col-md-10 col-xs-10">
+									<div class="messages msg_sent">
+										<p>{{msg.text}}</p>
+										<time datetime="{{date | date:'yyyy-MM-dd'}}"> • {{msg.user.facebook.name}}</time>
+									</div>
+								</div>
+								<div class="col-md-2 col-xs-2 avatar" >
+									<img id="chat_img" src="{{GetPicture(msg.user.facebook.id)}}" class=" img-circle">
+								</div>
+							</div>
+							<div class="row msg_container base_receive" ng-hide='{{isMe(msg.user)}}'>
+								<div class="col-md-2 col-xs-2 avatar">
+									<img id="chat_img" src="{{GetPicture(msg.user.facebook.id)}}" class=" img-circle">
+								</div>
+								<div class="col-md-10 col-xs-10">
+									<div class="messages msg_receive">
+										<p>{{msg.text}}</p>
+										<time datetime="{{date | date:'yyyy-MM-dd'}}"> • {{msg.user.facebook.name}}</time>
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
+							<div class="panel-footer">
+								<div class="input-group">
+									<input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..."  ng-keypress="EnterPressed(testMsg, $event)" ng-model="testMsg"/>
+									<span class="input-group-btn">
+										<button class="btn btn-primary btn-sm" id="btn-chat" ng-click="SendMessage(testMsg)">Send</button>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="btn-group dropup">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<span class="glyphicon glyphicon-cog"/>
+						<span class="sr-only">Toggle Dropdown</span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li>
+							<a href="#" id="new_chat">
+								<span class="glyphicon glyphicon-plus"/> Novo</a>
+						</li>
+						<li>
+							<a href="#">
+								<span class="glyphicon glyphicon-list"/> Ver outras</a>
+						</li>
+						<li>
+							<a href="#">
+								<span class="glyphicon glyphicon-remove"/> Fechar Tudo</a>
+						</li>
+						<li class="divider"/>
+						<li>
+							<a href="#">
+								<span class="glyphicon glyphicon-eye-close"/> Invisivel</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div id="users-table">
+					<thead>
+						<th>
+							<span class="fa fa-user"> Users</span>
+						</th>
+					</thead>
+					<table class="table table-hover">
+
+						<li class="list-group-item" ng-repeat="user in users">
+							<div class="col-xs-10 col-sm-3">
+								<img ng-src="{{GetPicture(user.facebook.id)}}" alt="" class="img-responsive img-circle" />
+							</div>
+							<div class="col-xs-12 col-sm-9">
+								<span class="name">{{user.local.username || user.facebook.name}}</span>
+								<br/>
+								<span class="fa fa-comments text-muted c-info" data-toggle="tooltip"/>
+								<span class="visible-xs">
+									
+									<br/>
+								</span>
+							</div>
+							<div class="clearfix"/>
+						</li>
+					</table>
+				</div>
+			</div>
+
+		</div>
+
+
+		
